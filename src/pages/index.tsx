@@ -1,35 +1,125 @@
-import { MdMessage, MdMoreVert } from "react-icons/md";
-import { GrStatusCriticalSmall } from "react-icons/gr";
 import ChatCard from "@components/ChatCard";
+import UserHeader from "@components/UserHeader";
+import ChatHeader from "@components/ChatHeader";
+import InputBar from "@components/InputBar";
+import Message from "@components/Message";
+import ChatDetails from "@components/ChatDetails";
+import { useState } from "react";
 
 export default function Home() {
+  const [showChatDetails, setShowChatDetails] = useState(false);
   return (
     <div className="h-screen p-8 font-serif text-white bg-gray-900">
-      <div className="grid h-full grid-cols-6 bg-gray-800 rounded-md">
-        <div className="col-span-6 border border-r border-gray-400 border-red-500 lg:col-span-2">
-          {/* header start*/}
-          <div className="flex items-center justify-between p-4 bg-gray-700 shadow-md header">
-            <img
-              src="https://cdn.dribbble.com/users/81997/avatars/small/6606012741df3f8cdbb2dfdf7bb52933.jpg?1603031532"
-              className="w-12 h-12 rounded-full"
-              alt=""
-            />
-            <div className="flex space-x-6">
-              <GrStatusCriticalSmall size={24} />
-              <MdMessage size={24} />
-              <MdMoreVert size={24} />
-            </div>
-          </div>
-          {/* header end*/}
-          <div className="h-full border border-blue-600 ">
+      <div className="flex h-full bg-gray-800">
+        <div className="flex flex-col w-1/3 h-full col-span-6 bg-gray-800 border-r border-gray-700 ">
+          <UserHeader />
+          <div className="flex-1 overflow-y-scroll">
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
             <ChatCard />
             <ChatCard />
           </div>
         </div>
-        <div className="relative h-full cols-span-6 lg:col-span-4">
-          <div className="flex items-center justify-between w-full h-20 p-4 bg-gray-700 shadow-md"></div>
-          chat
-          <div className="absolute bottom-0 left-0 flex items-center justify-between w-full h-16 p-4 bg-gray-700 shadow-md"></div>
+
+        <div className="flex w-2/3 h-full ">
+          <div className="relative flex flex-col w-full h-full">
+            <div onClick={() => setShowChatDetails(true)}>
+              <ChatHeader />
+            </div>
+
+            <div className="flex-1 p-5 pb-24 overflow-y-scroll messageWrapper">
+              <Message
+                name="Ramos"
+                text="I am a message"
+                showName={true}
+                nameColor="text-red-500"
+              />
+              <Message
+                name="Ramos"
+                text="I am a message"
+                showName={true}
+                nameColor="text-red-500"
+              />
+              <Message
+                name="Ramos"
+                text="I am a message"
+                showName={false}
+                nameColor="text-red-500"
+              />
+              <Message
+                name="Ramos"
+                text="I am a message"
+                showName={false}
+                nameColor="text-red-500"
+              />
+              <Message
+                name="Ramos"
+                text="I am a message"
+                showName={false}
+                nameColor="text-red-500"
+              />
+              <Message
+                name="Ramos"
+                text="I am a message"
+                showName={false}
+                nameColor="text-red-500"
+              />
+
+              <Message
+                name="Ramos"
+                text="I am a message"
+                showName={false}
+                nameColor="text-red-500"
+              />
+              <Message
+                name="Zidane"
+                text="I am a message"
+                showName={true}
+                nameColor="text-yellow-500"
+              />
+              <Message
+                name="Zidane"
+                text="I am a message  am a message"
+                showName={false}
+                nameColor="text-red-500"
+              />
+              <Message
+                name="User"
+                text="This message is from user"
+                showName={false}
+                userMessage
+                nameColor="text-red-500"
+              />
+              <Message
+                name="Ramos"
+                text="I am a message"
+                showName
+                nameColor="text-red-500"
+              />
+              <Message
+                name="Ramos"
+                text="I am a message"
+                showName={false}
+                nameColor="text-red-500"
+              />
+              <Message
+                name="Ramos"
+                text="I am a message"
+                showName={false}
+                nameColor="text-red-500"
+              />
+            </div>
+
+            <InputBar />
+          </div>
+          {showChatDetails && (
+            <ChatDetails setShowChatDetails={setShowChatDetails} />
+          )}
         </div>
       </div>
     </div>

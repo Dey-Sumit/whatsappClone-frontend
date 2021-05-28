@@ -9,3 +9,17 @@
     @apply <tailwind classes>
   }
 } */
+/* .messageWrapper > div:first-child {
+  margin-bottom: 50px;
+  border: red 2px solid;
+} */
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(55, 65, 81, 1);
+  border-radius: 10px;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  height: 0px;
+  /* height 0:  hide the horizontal scrollbar */
+}
