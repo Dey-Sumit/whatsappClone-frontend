@@ -4,13 +4,18 @@ import ChatHeader from "@components/ChatHeader";
 import InputBar from "@components/InputBar";
 import Message from "@components/Message";
 import ChatDetails from "@components/ChatDetails";
-import { useState } from "react";
+import { BiArrowBack } from "react-icons/bi";
+import { AnimatePresence, motion, Variant, Variants } from "framer-motion";
+
+import { useLayoutDispatch, useLayoutState } from "src/context/layout.context";
+import AuthUserDetails from "@components/AuthUserDetails";
 
 export default function Home() {
-  const [showChatDetails, setShowChatDetails] = useState(false);
+  const { showChatDetails, showAuthUserDetails } = useLayoutState();
+  const dispatch = useLayoutDispatch();
   return (
     <div className="h-screen p-8 font-serif text-white bg-gray-900">
-      <div className="flex h-full bg-gray-800">
+      <div className="relative flex h-full overflow-hidden bg-gray-800">
         <div className="flex flex-col w-1/3 h-full col-span-6 bg-gray-800 border-r border-gray-700 ">
           <UserHeader />
           <div className="flex-1 overflow-y-scroll">
@@ -21,14 +26,23 @@ export default function Home() {
             <ChatCard />
             <ChatCard />
             <ChatCard />
-            <ChatCard />
-            <ChatCard />
           </div>
         </div>
 
+        <AnimatePresence>
+          {showAuthUserDetails && <AuthUserDetails />}
+        </AnimatePresence>
+
         <div className="flex w-2/3 h-full ">
           <div className="relative flex flex-col w-full h-full">
-            <div onClick={() => setShowChatDetails(true)}>
+            <div
+              onClick={() =>
+                dispatch({
+                  type: "SHOW_CHAT_DETAILS",
+                  payload: true,
+                })
+              }
+            >
               <ChatHeader />
             </div>
 
@@ -117,9 +131,9 @@ export default function Home() {
 
             <InputBar />
           </div>
-          {showChatDetails && (
-            <ChatDetails setShowChatDetails={setShowChatDetails} />
-          )}
+          <AnimatePresence>
+            {showChatDetails && <ChatDetails />}
+          </AnimatePresence>
         </div>
       </div>
     </div>
