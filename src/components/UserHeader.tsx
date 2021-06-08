@@ -1,14 +1,17 @@
-import { MdMessage, MdMoreVert } from "react-icons/md";
+import { MdKeyboardArrowRight, MdMessage, MdMoreVert } from "react-icons/md";
 import { GrStatusCriticalSmall } from "react-icons/gr";
 import { useLayoutDispatch } from "src/context/layout.context";
+import { useAuthState } from "src/context/auth.context";
 
 const UserHeader = () => {
   const dispatch = useLayoutDispatch();
+  const { user } = useAuthState();
+  console.log({ user });
 
   return (
     <div className="flex items-center justify-between h-20 p-4 bg-gray-700 shadow-md">
       <img
-        src="https://cdn.dribbble.com/users/81997/avatars/small/6606012741df3f8cdbb2dfdf7bb52933.jpg?1603031532"
+        src={user?.profilePicture}
         className="w-12 h-12 rounded-full cursor-pointer"
         alt=""
         onClick={() =>
