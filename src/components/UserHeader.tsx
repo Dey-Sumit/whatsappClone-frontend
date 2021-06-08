@@ -2,11 +2,17 @@ import { MdKeyboardArrowRight, MdMessage, MdMoreVert } from "react-icons/md";
 import { GrStatusCriticalSmall } from "react-icons/gr";
 import { useLayoutDispatch } from "src/context/layout.context";
 import { useAuthState } from "src/context/auth.context";
+import useSWR from "swr";
+import axios from "axios";
+import { useEffect } from "react";
 
 const UserHeader = () => {
   const dispatch = useLayoutDispatch();
   const { user } = useAuthState();
-  console.log({ user });
+  const { data, mutate } = useSWR("api/users/60be6c9fe01e86443c9ce268", {
+    initialData: "haha",
+  }); // TODO check if it is working or not
+  console.log({ data });
 
   return (
     <div className="flex items-center justify-between h-20 p-4 bg-gray-700 shadow-md">

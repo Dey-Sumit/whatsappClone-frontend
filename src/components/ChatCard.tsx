@@ -1,6 +1,6 @@
 import { useLayoutDispatch } from "src/context/layout.context";
 
-const ChatCard = () => {
+const ChatCard = ({ data }) => {
   const dispatch = useLayoutDispatch();
 
   return (
@@ -19,7 +19,7 @@ const ChatCard = () => {
         alt=""
       />
       <div className="flex flex-col">
-        <span className="font-medium">Sumit Dey</span>
+        <span className="font-medium">{data.username}</span>
         <span className="text-gray-300">What's up</span>
       </div>
       {/* // use justify self */}
