@@ -1,6 +1,18 @@
+import { useLayoutDispatch } from "src/context/layout.context";
+
 const ChatCard = () => {
+  const dispatch = useLayoutDispatch();
+
   return (
-    <div className="flex items-center w-full p-3 border-b border-gray-700 cursor-pointer hover:bg-gray-900">
+    <div
+      className="flex items-center w-full p-3 border-b border-gray-700 cursor-pointer hover:bg-gray-900"
+      onClick={() =>
+        dispatch({
+          type: "SET_ACTIVE_CHAT",
+          payload: "hahaha",
+        })
+      }
+    >
       <img
         src="https://cdn.dribbble.com/users/81997/avatars/small/6606012741df3f8cdbb2dfdf7bb52933.jpg?1603031532"
         className="mr-4 rounded-full w-14 h-14"
