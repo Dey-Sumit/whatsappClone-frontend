@@ -41,9 +41,25 @@ const Home: NextPage<{ initialUsersData: [] }> = ({ initialUsersData }) => {
           </div>
 
           <div className="flex-1 overflow-y-scroll">
-            {users.map((user) => (
+            {/* {users.map((user) => (
               <ChatCard data={user} />
-            ))}
+            ))} */}
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
+            <ChatCard />
           </div>
         </div>
 
@@ -65,22 +81,22 @@ const Home: NextPage<{ initialUsersData: [] }> = ({ initialUsersData }) => {
 };
 
 export default Home;
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  let users;
-  try {
-    const { data } = await axios.get(
-      `${process.env.API_BASE_ENDPOINT}api/users`
-    );
-    users = data;
-  } catch (error) {
-    console.log("Error", error.response?.data);
-  }
+// export const getServerSideProps = async (
+//   context: GetServerSidePropsContext
+// ) => {
+//   let users;
+//   try {
+//     const { data } = await axios.get(
+//       `${process.env.API_BASE_ENDPOINT}api/users`
+//     );
+//     users = data;
+//   } catch (error) {
+//     console.log("Error", error.response?.data);
+//   }
 
-  return {
-    props: {
-      initialUsersData: users,
-    },
-  };
-};
+//   return {
+//     props: {
+//       initialUsersData: users,
+//     },
+//   };
+// };
