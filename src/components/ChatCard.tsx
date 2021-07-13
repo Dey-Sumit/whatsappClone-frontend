@@ -1,6 +1,18 @@
+import { Chat } from "libs/types";
+import Image from "next/image";
+import { FunctionComponent } from "react";
 import { useLayoutDispatch } from "src/context/layout.context";
+import dayjs from "dayjs";
+const ChatCard: FunctionComponent<{ chat: Chat }> = ({
+  chat: {
+    latestMessage: { text, createdAt },
+    chatName,
+    groupIcon,
+    _id,
+  },
+}) => {
+  //!idea get only   { latestMessage, chatName, groupIcon } these props from backend for chat all , if the chat is selected then get all chats, for example we don't need to all the messages of a inactive chats, if the chat is active, we will fetch the chats in chat screen
 
-const ChatCard = () => {
   const dispatch = useLayoutDispatch();
 
   return (
@@ -9,22 +21,19 @@ const ChatCard = () => {
       onClick={() =>
         dispatch({
           type: "SET_ACTIVE_CHAT",
-          payload: "hahaha",
+          payload: { chatName, _id },
         })
       }
     >
-      <img
-        src="https://cdn.dribbble.com/users/81997/avatars/small/6606012741df3f8cdbb2dfdf7bb52933.jpg?1603031532"
-        className="mr-4 rounded-full w-14 h-14"
-        alt=""
-      />
+      {/* //! need to render conditionally for one to one chat */}
+      {/* <Image src={groupIcon} height={50} width={50} className="rounded-full " alt="" /> */}
       <div className="flex flex-col">
-        <span className="font-medium">{"Sumit"}</span>
-        <span className="text-gray-300">What's up</span>
+        <span className="font-medium">{chatName}</span>
+        <span className="text-gray-300">{text}</span>
       </div>
       {/* // use justify self */}
       <div className="ml-auto text-gray-400">
-        <span>13:31</span>
+        <span>{dayjs(createdAt).format("hh:mm")}</span>
       </div>
     </div>
   );

@@ -1,15 +1,21 @@
+import { Chat } from "libs/types";
 import React, { createContext, useContext, useReducer } from "react";
 
 interface IState {
   showAuthUserDetails: boolean;
   showChatDetails: boolean;
   showNewChatTab: boolean;
-  activeChat: string;
+  activeChat: {
+    _id: string;
+    chatName: string;
+  };
+  chats:Chat[]
 }
 type ActionType =
   | "SHOW_AUTH_USER_DETAILS"
   | "SHOW_CHAT_DETAILS"
   | "SET_ACTIVE_CHAT"
+  | "SET_CHATS"
   | "SHOW_NEW_CHAT_TAB";
 
 interface IAction {
@@ -45,6 +51,11 @@ const reducer = (state: IState, { type, payload }: IAction) => {
         ...state,
         activeChat: payload,
       };
+    case "SET_CHATS":
+      return {
+        ...state,
+        chats: payload,
+      };
 
     default:
       throw new Error(`Unknown action type"${type}`);
@@ -52,15 +63,13 @@ const reducer = (state: IState, { type, payload }: IAction) => {
 };
 
 export const LayoutProvider = ({ children }) => {
-  const [state, dispatch] = useReducer<React.Reducer<IState, IAction>>(
-    reducer,
-    {
-      showChatDetails: false,
-      showAuthUserDetails: false,
-      showNewChatTab: false,
-      activeChat: null,
-    }
-  );
+  const [state, dispatch] = useReducer<React.Reducer<IState, IAction>>(reducer, {
+    showChatDetails: false,
+    showAuthUserDetails: false,
+    showNewChatTab: false,
+    activeChat: null,
+    chats:[]
+  });
 
   return (
     <DispatchContext.Provider value={dispatch}>

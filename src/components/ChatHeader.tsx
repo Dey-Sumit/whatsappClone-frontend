@@ -1,7 +1,9 @@
 import { MdMessage, MdMoreVert, MdSearch } from "react-icons/md";
 import { GrStatusCriticalSmall } from "react-icons/gr";
+import { FunctionComponent } from "react";
+import { Chat } from "libs/types";
 
-const ChatHeader = () => {
+const ChatHeader: FunctionComponent<{ chat: Chat }> = ({ chat }) => {
   return (
     <div className="flex items-center p-4 bg-gray-700 shadow-md cursor-pointer header">
       <img
@@ -10,7 +12,7 @@ const ChatHeader = () => {
         alt=""
       />
       <div className="flex flex-col">
-        <span className="font-medium">Group 69</span>
+        <span className="font-medium">{chat?.chatName}</span>
         <span className="text-gray-300">Sam,Sumax,Sumit</span>
       </div>
       <div className="flex ml-auto space-x-4">

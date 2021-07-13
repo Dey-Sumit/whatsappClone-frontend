@@ -9,26 +9,24 @@ import AuthUserDetails from "@components/AuthUserDetails";
 import NewChatTab from "@components/NewChatTab";
 import SearchInput from "@components/SearchInput";
 import ChatScreen from "@components/ChatScreen";
-import {
-  GetServerSidePropsContext,
-  GetServerSidePropsResult,
-  NextPage,
-} from "next";
+import { GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from "next";
 import axios from "axios";
 import useSWR, { mutate } from "swr";
 import { useEffect } from "react";
+import { Chat, User } from "libs/types";
+import { useSocket } from "src/context/socket.context";
 
 const Home: NextPage<{ initialUsersData: [] }> = ({ initialUsersData }) => {
-  const { data: users, error } = useSWR("api/users", {
-    initialData: initialUsersData,
-  }); // TODO check if it is working or not
+  // const { data: user, error } = useSWR<User>("api/users/60ea7ffea8810838600dedaf/chats");
+  const socket = useSocket();
+
   // useEffect(() => {
   //    use swr with initial data is not getting fired when the component did mount because of the initial data :(
   //      but it is getting called all the other times
   //      so if you want to call the explicitly when the component did mount , use useEffect() and call mutate
   //   mutate();
   // }, []);
-  const { showChatDetails, activeChat, showAuthUserDetails, showNewChatTab } =
+  const { chats, showChatDetails, activeChat, showAuthUserDetails, showNewChatTab } =
     useLayoutState();
   const dispatch = useLayoutDispatch();
   return (
@@ -41,25 +39,9 @@ const Home: NextPage<{ initialUsersData: [] }> = ({ initialUsersData }) => {
           </div>
 
           <div className="flex-1 overflow-y-scroll">
-            {/* {users.map((user) => (
-              <ChatCard data={user} />
-            ))} */}
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
+            {chats?.map((chat) => (
+              <ChatCard chat={chat} key={chat._id} />
+            ))}
           </div>
         </div>
 
@@ -71,9 +53,7 @@ const Home: NextPage<{ initialUsersData: [] }> = ({ initialUsersData }) => {
         <div className="flex w-2/3 h-full ">
           <ChatScreen />
 
-          <AnimatePresence>
-            {showChatDetails && <ChatDetails />}
-          </AnimatePresence>
+          <AnimatePresence>{showChatDetails && <ChatDetails />}</AnimatePresence>
         </div>
       </div>
     </div>

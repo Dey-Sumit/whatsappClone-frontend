@@ -9,10 +9,9 @@ import { useEffect } from "react";
 const UserHeader = () => {
   const dispatch = useLayoutDispatch();
   const { user } = useAuthState();
-  const { data, mutate } = useSWR("api/users/60be6c9fe01e86443c9ce268", {
-    initialData: "haha",
-  }); // TODO check if it is working or not
-  console.log({ data });
+  // const { data, mutate } = useSWR("api/users/60ea7ffea8810838600dedaf", {
+
+  // });
 
   return (
     <div className="flex items-center justify-between h-20 p-4 bg-gray-700 shadow-md">

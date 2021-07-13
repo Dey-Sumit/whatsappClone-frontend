@@ -40,13 +40,10 @@ const reducer = (state: IState, { type, payload }: IAction) => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [state, dispatch] = useReducer<React.Reducer<IState, IAction>>(
-    reducer,
-    {
-      user: null,
-      loading: true, // might be needed later :(
-    }
-  );
+  const [state, dispatch] = useReducer<React.Reducer<IState, IAction>>(reducer, {
+    user: null,
+    loading: true, // might be needed later :(
+  });
 
   useEffect(() => {
     async function loadUser() {
@@ -58,7 +55,7 @@ export const AuthProvider = ({ children }) => {
           payload: null,
         });
         const { data } = await axios.get("/api/auth/me");
-        console.log({ data });
+        console.log({ authUser: data });
 
         dispatch({
           type: "SET_USER",
