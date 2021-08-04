@@ -9,13 +9,16 @@ interface IState {
     _id: string;
     chatName: string;
   };
-  chats:Chat[]
+  chats: Chat[];
+  notifications: Record<string, number>;
 }
 type ActionType =
   | "SHOW_AUTH_USER_DETAILS"
   | "SHOW_CHAT_DETAILS"
   | "SET_ACTIVE_CHAT"
   | "SET_CHATS"
+  | "SET_NOTIFICATIONS"
+  | "INCREMENT_NOTIFICATION"
   | "SHOW_NEW_CHAT_TAB";
 
 interface IAction {
@@ -56,6 +59,22 @@ const reducer = (state: IState, { type, payload }: IAction) => {
         ...state,
         chats: payload,
       };
+    case "SET_NOTIFICATIONS":
+      return {
+        ...state,
+        notifications: payload,
+      };
+    case "INCREMENT_NOTIFICATION":
+      const notis = state.notifications[payload];
+
+      return {
+        ...state,
+        notifications: {
+          ...state.notifications,
+          [payload]: notis ? notis + 1 : 1,
+        },
+      };
+      
 
     default:
       throw new Error(`Unknown action type"${type}`);
@@ -68,7 +87,8 @@ export const LayoutProvider = ({ children }) => {
     showAuthUserDetails: false,
     showNewChatTab: false,
     activeChat: null,
-    chats:[]
+    chats: [],
+    notifications: {},
   });
 
   return (

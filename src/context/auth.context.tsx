@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
           payload: null,
         });
         const { data } = await axios.get("/api/auth/me");
-        console.log({ authUser: data });
+        //  console.log({ authUser: data });
 
         dispatch({
           type: "SET_USER",

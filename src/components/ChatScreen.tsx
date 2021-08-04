@@ -14,7 +14,8 @@ const ChatScreen = () => {
   const { data: chat, error } = useSWR<Chat>(activeChat && `/api/chats/${activeChat._id}`);
 
   useEffect(() => {
-    if (activeChat) socket?.emit("JOIN_ROOM", activeChat.chatName);
+    if (activeChat) socket?.emit("JOIN_ROOM", activeChat);
+    // if (activeChat) socket?.emit("MESSAGE_READ", activeChat);
 
     return () => {};
   }, [activeChat]);

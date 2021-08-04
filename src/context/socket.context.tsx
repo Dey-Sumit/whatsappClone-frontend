@@ -9,10 +9,13 @@ const SocketContext = createContext<Socket>(null);
 export const SocketProvider = ({ children }) => {
   const { user } = useAuthState();
   const dispatch = useLayoutDispatch();
+
+      // const {notifications} =  useLayoutState()
+
   //TODO change context name, make single context
 
   const [socket, setSocket] = useState<Socket>(null);
-  console.log({ socket });
+  // console.log({ socket });
 
   useEffect(() => {
     if (user && socket && !socket.connected) {
@@ -49,10 +52,27 @@ export const SocketProvider = ({ children }) => {
       });
 
       temp_socket.on("GET_CHATS", (chats) => {
-        console.log({ chats });
+        // console.log({ chats });
         dispatch({
           type: "SET_CHATS",
           payload: chats,
+        });
+      });
+      temp_socket.on("NOTIFY", (chatId) => {
+        console.log("Notification From ", chatId);
+
+        dispatch({
+          type: "INCREMENT_NOTIFICATION",
+          payload: chatId,
+        });
+
+
+      });
+      temp_socket.on("GET_NOTIFICATIONS", (notifications) => {
+        console.log("Notifications ", notifications);
+        dispatch({
+          type: "SET_NOTIFICATIONS",
+          payload: notifications,
         });
       });
     }

@@ -1,7 +1,7 @@
 import { Chat } from "libs/types";
 import Image from "next/image";
 import { FunctionComponent } from "react";
-import { useLayoutDispatch } from "src/context/layout.context";
+import { useLayoutDispatch, useLayoutState } from "src/context/layout.context";
 import dayjs from "dayjs";
 const ChatCard: FunctionComponent<{ chat: Chat }> = ({
   chat: {
@@ -11,6 +11,8 @@ const ChatCard: FunctionComponent<{ chat: Chat }> = ({
     _id,
   },
 }) => {
+  const { notifications } = useLayoutState();
+
   //!idea get only   { latestMessage, chatName, groupIcon } these props from backend for chat all , if the chat is selected then get all chats, for example we don't need to all the messages of a inactive chats, if the chat is active, we will fetch the chats in chat screen
 
   const dispatch = useLayoutDispatch();
@@ -34,6 +36,7 @@ const ChatCard: FunctionComponent<{ chat: Chat }> = ({
       {/* // use justify self */}
       <div className="ml-auto text-gray-400">
         <span>{dayjs(createdAt).format("hh:mm")}</span>
+        <span className="ml-2 text-red-600">{notifications[_id]}</span>
       </div>
     </div>
   );
